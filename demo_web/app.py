@@ -9,6 +9,7 @@ Run with:  ``uv run python demo_web/app.py``  (after ``uv sync --extra web``).
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from uuid import uuid4
 
@@ -185,4 +186,8 @@ def build_app() -> gr.Blocks:
 
 if __name__ == "__main__":
     WORK_ROOT.mkdir(parents=True, exist_ok=True)
-    build_app().queue().launch(share=True)
+    build_app().queue().launch(
+        server_name="0.0.0.0",
+        server_port=int(os.environ.get("GRADIO_SERVER_PORT", "7860")),
+        share=False,
+    )
