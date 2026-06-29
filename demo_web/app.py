@@ -102,7 +102,7 @@ def run(
 def build_app() -> gr.Blocks:
     with gr.Blocks(title="Basketball Injury-Risk Analysis") as demo:
         gr.Markdown(
-            "# 🏀 Basketball Injury-Risk Analysis\n"
+            "# Basketball Injury-Risk Analysis\n"
             "Upload a clip, pick a reference frame, **click the player** to "
             "analyse, then run the LESS-inspired landing analysis."
         )
