@@ -1,0 +1,11 @@
+# ByteTrack tuned for sport footage: players are frequently occluded by each
+# other, so keep lost tracks alive longer to reduce tracklet fragmentation. The
+# colour registry assigns each tracklet to a selected id.
+
+tracker_type: bytetrack
+track_high_thresh: 0.25
+track_low_thresh: 0.1
+new_track_thresh: 0.25
+track_buffer: 150  # frames a lost track is kept (~7.5s at 20fps); wider = fewer raw-id flips
+match_thresh: 0.7 # lower = ByteTrack matches on less IoU overlap (helps with close players)
+fuse_score: True

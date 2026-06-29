@@ -1,0 +1,18 @@
+# Golden-clip evaluation labels (hand-marked ground truth).
+#
+# One row per clip. Fill these by scrubbing the video:
+#   clip                  -> the source stem (matches output/<clip>_jumps.csv)
+#   true_landing_frames   -> frame index of each REAL landing (initial contact),
+#                            ';'-separated. Leave empty if the clip has no landing.
+#   less_per_landing      -> the human LESS-subset score (0-9) for each landing,
+#                            ';'-separated, SAME ORDER as true_landing_frames.
+#                            Leave empty if you only want to score detection (not LESS).
+#
+# The evaluator (scripts/evaluate.py) reads output/<clip>_jumps.csv (already
+# written by --analyze) and compares against these labels. No pipeline re-run.
+#
+# Lines starting with '#' are ignored.
+clip,true_landing_frames,less_per_landing
+basket_S1T3_pre,144;193,5;4
+# basket_S1T1_pre,,
+# basket_S1T2_pre,,

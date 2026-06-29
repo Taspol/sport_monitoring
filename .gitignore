@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.ruff_cache/
+
+# Project artifacts
+/data/
+/models/*.task
+/models/*.pt
+/output/
+.claude/
+
+# OS
+.DS_Store

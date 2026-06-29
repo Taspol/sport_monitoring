@@ -1,0 +1,49 @@
+[project]
+name = "sport-monitoring"
+version = "0.1.0"
+description = "Basketball injury-risk analysis from video (YOLO + ByteTrack + RTMPose, LESS-inspired landing biomechanics)"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "opencv-python>=4.9.0",
+    "numpy>=1.26,<2.0",
+    "scipy>=1.12.0",
+    "requests>=2.31.0",
+    "tqdm>=4.66.0",
+    "ultralytics>=8.3.0",
+    "lap>=0.5.12",
+    "rtmlib>=0.0.15",
+    "onnxruntime>=1.24.3",
+]
+
+[project.optional-dependencies]
+# Alternative backbones for the --detector/--pose comparison benchmark. Only needed
+# when running those variants; the default yolo+rtm path imports neither (lazy).
+benchmark = [
+    "mediapipe>=0.10.9",   # BlazePose pose backend
+    "rfdetr>=1.0.0",       # RF-DETR detector backend
+    "supervision>=0.20.0", # ByteTrack association for RF-DETR
+]
+# Gradio web demo (demo_web/). Wraps the same analyze pipeline -- upload a clip,
+# click the player, view the annotated result. Needs system ffmpeg on PATH for
+# the browser-friendly H.264 re-encode of the output video.
+web = [
+    "gradio>=4.44",
+]
+
+[project.scripts]
+sport-monitoring = "sport_monitoring.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sport_monitoring"]
+# Ship the bundled tracker config alongside the Python modules.
+artifacts = ["src/sport_monitoring/*.yaml"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6.0",
+]
