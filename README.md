@@ -22,6 +22,72 @@ Managed with the [uv](https://docs.astral.sh/uv/) package manager.
 > [`docs/INJURY_ANALYSIS.md`](docs/INJURY_ANALYSIS.md) for the method, metric
 > definitions, and the backbone comparison.
 
+> 🚀 **Live demo:** [**sport-monitoring.taspolsd.dev**](https://sport-monitoring.taspolsd.dev/) —
+> upload a clip, click the player to analyse, and view the annotated result in the browser.
+
+---
+
+## Results
+
+A few representative outputs from the pipeline. Try them yourself on the
+[**live demo**](https://sport-monitoring.taspolsd.dev/).
+
+### Trajectory analysis
+
+A strobe / trajectory map of the analysed player: jump and landing events are placed
+along the foot-line path, so you can read the take-off and touch-down moments at a
+glance alongside the per-landing LESS-inspired risk.
+
+![Pose trajectory analysis for the analysed player](asset/basket_S1T2_pre_pose_trajectory.png)
+
+### Indoor tracking with details
+
+Close-range indoor footage: every player is detected and given a stable id, with the
+17-keypoint skeleton and per-player overlay (joint angles, jump/landing banners)
+rendered each frame.
+
+https://github.com/Taspol/sport_monitoring/raw/main/asset/basket_S1T2_pre_pose.mp4
+
+### Outdoor tracking — reliable through a fall
+
+Wide outdoor footage where the players are small in frame. Tracking stays locked on
+through occlusion and a **fall**, which the fall detector flags — the case that
+matters most for injury monitoring.
+
+https://github.com/Taspol/sport_monitoring/raw/main/asset/outdoor1_fall2_clean.mp4
+
+> The `.mp4` clips embed inline on GitHub. If a viewer doesn't render them, open
+> [`asset/basket_S1T2_pre_pose.mp4`](asset/basket_S1T2_pre_pose.mp4) and
+> [`asset/outdoor1_fall2_clean.mp4`](asset/outdoor1_fall2_clean.mp4) directly.
+
+---
+
+## Dataset & citation
+
+The sample footage used in this project (the clips above and the videos under
+`data/`) is sourced from **TrackID3x3**, a dataset of fixed-camera indoor, outdoor,
+and drone-captured 3x3 basketball footage with player bounding boxes and pose
+keypoints.
+
+- **Repository:** [open-starlab/TrackID3x3](https://github.com/open-starlab/TrackID3x3)
+- **Paper:** Yamada et al., *TrackID3x3: A Dataset for 3x3 Basketball Player Tracking
+  and Identification*, arXiv:2503.18282 (2025) —
+  [arxiv.org/abs/2503.18282](https://arxiv.org/abs/2503.18282)
+- **License:** dataset under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+  (code under Apache-2.0). Attribution is provided per the CC BY 4.0 terms.
+
+```bibtex
+@article{yamada2025trackid3x3,
+  title={TrackID3x3: A Dataset for 3x3 Basketball Player Tracking and Identification},
+  author={Yamada, Kazuhiro and Yin, Li and Hu, Qingrui and Ding, Ning and Iwashita, Shunsuke and Ichikawa, Jun and Kotani, Kiwamu and Yeung, Calvin and Fujii, Keisuke},
+  journal={arXiv preprint arXiv:2503.18282},
+  year={2025}
+}
+```
+
+> This project is an independent analysis pipeline built on top of that footage; it
+> is not affiliated with or endorsed by the TrackID3x3 authors.
+
 ---
 
 ## Setup
