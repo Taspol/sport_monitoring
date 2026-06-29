@@ -32,15 +32,28 @@ Requires Python 3.10–3.12 and [uv](https://docs.astral.sh/uv/getting-started/i
 uv sync
 ```
 
-This creates a `.venv` and installs the core dependencies (Ultralytics/YOLO, rtmlib,
-onnxruntime, OpenCV, NumPy, SciPy, tqdm). YOLO weights are bundled in `models/`; the
-RTMPose ONNX model is downloaded once on first run and cached under `~/.cache/rtmlib`.
+This creates a `.venv` and installs the core dependencies. YOLO weights are bundled
+in `models/`; the RTMPose ONNX model is downloaded once on first run and cached under
+`~/.cache/rtmlib`.
 
-Optional alternative backbones (only for the `--detector`/`--pose` benchmark):
+### Dependency groups
 
-```bash
-uv sync --extra benchmark   # adds mediapipe, rfdetr, supervision
-```
+Everything needed to run the code is declared in `pyproject.toml`, split into the
+core deps plus two optional [extras](https://docs.astral.sh/uv/concepts/projects/dependencies/#optional-dependencies):
+
+| Install | Command | Adds |
+|---------|---------|------|
+| **Core** (CLI) | `uv sync` | opencv-python, numpy, scipy, requests, tqdm, ultralytics, rtmlib, onnxruntime, lap |
+| **Web demo** | `uv sync --extra web` | gradio (see [`demo_web/`](demo_web/README.md)) |
+| **Alt backbones** | `uv sync --extra benchmark` | mediapipe, rfdetr, supervision (for `--detector`/`--pose`) |
+| **Everything** | `uv sync --extra web --extra benchmark` | all of the above |
+
+> Extras are exclusive per `uv sync`: naming only one **prunes** the others. To keep
+> the web demo *and* the alt backbones installed, sync both together (the last row).
+
+**System dependency:** the web demo also needs [`ffmpeg`](https://ffmpeg.org/) on
+your `PATH` (for browser-friendly H.264 re-encoding) — it is not a Python package:
+`brew install ffmpeg` (macOS) or `apt install ffmpeg` (Debian/Ubuntu).
 
 Put your input videos in `./data/` (or pass file paths explicitly).
 

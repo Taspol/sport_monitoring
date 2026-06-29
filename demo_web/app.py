@@ -185,4 +185,4 @@ def build_app() -> gr.Blocks:
 
 if __name__ == "__main__":
     WORK_ROOT.mkdir(parents=True, exist_ok=True)
-    build_app().queue().launch()
+    build_app().queue().launch(share=True)
